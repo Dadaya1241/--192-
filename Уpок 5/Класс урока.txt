@@ -1,0 +1,92 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace MyHell
+{
+    class Program
+    {
+        static void Commands()
+        {
+            Console.WriteLine("\nДоступные команды: ");
+            Console.WriteLine("\t -clear - очистить командную строку");
+            Console.WriteLine("\t -exit - выйти из программы");
+            Console.WriteLine("\t -help - обзор команд");
+        }
+
+        static void Main(string[] args)
+        {
+            List<ILess> lessons = new List<ILess>();
+
+            lessons.Add(new Lesson1());
+            lessons.Add(new Lesson2());
+            lessons.Add(new Lesson3());
+            lessons.Add(new lesss4.Lesson4());
+            lessons.Add(new less5.Lesson5());
+           
+
+            while (true)
+            {
+                bool exit = false;
+
+                Console.WriteLine("Что вы хотите ввести команду или номер урока ? K/L");
+                var question = Console.ReadLine();
+
+                if (question == "K")
+                {
+                    Commands();
+                    Console.Write("Введите команду: ");
+                    var command = Console.ReadLine();
+                    switch (command)
+                    {
+                        case "clear":
+                            Console.Clear();
+                            break;
+                        case "exit":
+                            exit = true;
+                            break;
+                        case "help":
+                            Commands();
+                            break;
+                        default:
+                            Console.WriteLine("Данной команды не существует !");
+                            break;
+                    }
+                }
+                else if (question == "L")
+                {
+                    Console.WriteLine("Доступные уроки: ");
+                    foreach (ILess less in lessons)
+                    {
+                        Console.Write("Урок №" + less.ID() + ". ");
+                        less.Info();
+                    }
+
+                    Console.Write("Введите номер урока: ");
+                    var id = Console.ReadLine();
+                    foreach (ILess less in lessons)
+                    {
+                        if (id == less.ID())
+                        {
+                            less.Demo();
+                            less.Info();
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Данной команды не существует !");
+                }
+
+                if (exit == true)
+                {
+                    Console.WriteLine("Просмотр окончен");
+                    break;
+                }
+            }
+        }
+    }
+}

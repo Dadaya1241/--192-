@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MyHell.less5
+{
+    class Tree<T>
+        where T : IComparable, IComparable<T>
+    {
+        public Node<T> Root { get; set; }
+        public int Count { get; set; }
+
+        public void Add(T data)
+        {
+            if (Root == null)
+            {
+                Root = new Node<T>(data);
+                Count = 1;
+
+                return;
+            }
+
+            Root.Add(data);
+            Count++;
+        }
+
+        public List<T> Preorder()
+        {
+            if (Root == null)
+            {
+                return new List<T>();
+            }
+
+            return Preorder(Root);
+        }
+
+        private List<T> Preorder(Node<T> node)
+        {
+            var list = new List<T>();
+            if (node != null)
+            {
+                list.Add(node.Data);
+
+                if (node.Left != null)
+                {
+                    list.AddRange(Preorder(node.Left));
+                }
+
+                if (node.Right != null)
+                {
+                    list.AddRange(Preorder(node.Right));
+                }
+            }
+
+            return list;
+        }
+
+        public void PrintTree(int x, int y, Node<T> root, int delta = 0)
+        {
+            char bracket = '[';
+            char bracket2 = ']';
+            if (root != null)
+            {
+                if (delta == 0) delta = x / 2;
+                Console.SetCursorPosition(x, y);                
+                Console.Write($"{bracket} {root.Data} {bracket2}");
+                PrintTree(x - delta, y + 3, root.Left, delta / 3);
+                PrintTree(x + delta, y + 3, root.Right, delta / 3);
+            }
+        }
+    }
+}

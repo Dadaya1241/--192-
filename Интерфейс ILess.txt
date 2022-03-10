@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MyHell
+{
+    interface ILess
+    {
+        /// <summary>
+        /// Просмотр задания
+        /// </summary>
+        void Demo();
+
+        /// <summary>
+        /// Описание задания
+        /// </summary>
+        void Info();
+
+        /// <summary>
+        /// ID (номер) задания
+        /// </summary>
+        /// <returns></returns>
+        string ID();
+    }
+}

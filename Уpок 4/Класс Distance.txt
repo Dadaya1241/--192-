@@ -1,0 +1,230 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MyHell
+{
+    /// <summary>
+    /// Структура, опеделяющая координаты точки на плоскости
+    /// </summary>
+    public struct PointStruct
+    {
+        public double X;
+        public double Y;
+    }
+
+    /// <summary>
+    /// Класс, опеделяющий координаты точки на плоскости
+    /// </summary>
+    /// 
+    public class PointClass
+    {
+        public double X;
+        public double Y;
+    }
+
+    class Distance
+    {
+        /// <summary>
+        /// Вычисляет расстояние для структуры
+        /// </summary>
+        /// <param name="pointOne"></param>
+        /// <param name="pointTwo"></param>
+        /// <returns></returns>
+        private double PointDistance(PointClass pointOne, PointClass pointTwo)
+        {
+            double x = pointOne.X - pointTwo.X;
+            double y = pointOne.Y - pointTwo.Y;
+
+            return Math.Sqrt(x * x + y * y);
+        }
+
+
+        /// <summary>
+        /// Вычисляет расстояние для класса
+        /// </summary>
+        /// <param name="pointOne"></param>
+        /// <param name="pointTwo"></param>
+        /// <returns></returns>
+        private double PointDistanceEstimate(PointClass pointOne, PointClass pointTwo)
+        {
+            double x = pointOne.X - pointTwo.X;
+            double y = pointOne.Y - pointTwo.Y;
+
+            return (x * x + y * y);
+        }
+
+        /// <summary>
+        /// Вычисляет расстояние для структуры
+        /// </summary>
+        /// <param name="pointOne"></param>
+        /// <param name="pointTwo"></param>
+        /// <returns></returns>
+        private double PointDistance(PointStruct pointOne, PointStruct pointTwo)
+        {
+            double x = pointOne.X - pointTwo.X;
+            double y = pointOne.Y - pointTwo.Y;
+
+            return Math.Sqrt(x * x + y * y);
+        }
+
+        /// <summary>
+        /// Вычисляет расстояние для структуры
+        /// </summary>
+        /// <param name="pointOne"></param>
+        /// <param name="pointTwo"></param>
+        /// <returns></returns>
+        private double PointDistanceEstimate(PointStruct pointOne, PointStruct pointTwo)
+        {
+            double x = pointOne.X - pointTwo.X;
+            double y = pointOne.Y - pointTwo.Y;
+
+            return (x * x + y * y);
+        }
+
+        static  PointClass[] _pointClassArr;
+        static  PointStruct[] _pointStructArr;
+
+        /// <summary>
+        /// Рандомизация массива
+        /// </summary>
+        /// <param name="N"></param>
+        private void Rand(int N)
+        {
+            Random rng = new Random();
+            _pointClassArr = new PointClass[N];
+            _pointStructArr = new PointStruct[N];
+
+            Random rnd = new Random();
+
+            for (int i = 0; i < N; i++)
+            {
+                PointClass ClassPoint = new PointClass();
+
+                ClassPoint.X = rng.Next(-100, 100);
+                ClassPoint.Y = rng.Next(-100, 100);
+
+                _pointClassArr[i] = ClassPoint;
+
+                PointStruct StructPoint = new PointStruct();
+
+                StructPoint.X = rng.Next(-100, 100);
+                StructPoint.Y = rng.Next(-100, 100);
+
+                _pointStructArr[i] = StructPoint;
+            }
+        }
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="N"></param>
+        public Distance(int N)
+        {
+            Rand(N);
+        }
+
+        /// <summary>
+        /// Вычисление дистанции для класса
+        /// </summary>
+        public void CalcDistanceForClassArr()
+        {
+            for (int i = 0; i < _pointClassArr.Length - 1; i++)
+            {
+                double a = PointDistance(_pointClassArr[i], _pointClassArr[i + 1]);
+            }
+        }
+
+        /// <summary>
+        /// Массив значений дистанции для класса
+        /// </summary>
+        /// <returns></returns>
+        public double[] DistanceForClassArr()
+        {
+            double[] arr = new double[_pointClassArr.Length - 1];
+
+            for (int i = 0; i < _pointClassArr.Length - 1; i++)
+            {
+                arr[i] = PointDistance(_pointClassArr[i], _pointClassArr[i + 1]);
+            }
+            return arr;
+        }
+
+        /// <summary>
+        /// Вычисление дистанции для структуры
+        /// </summary>
+        public void CalcDistanceForStruct()
+        {
+            for (int i = 0; i < _pointStructArr.Length - 1; i++)
+            {
+                double a = PointDistance(_pointStructArr[i], _pointStructArr[i + 1]);
+            }
+        }
+
+        /// <summary>
+        /// Вычисление оценки дистанции для класса
+        /// </summary>
+        public void CalcEstimateDistanceForClass()
+        {
+            for (int i = 0; i < _pointClassArr.Length - 1; i++)
+            {
+                double a = PointDistanceEstimate(_pointClassArr[i], _pointClassArr[i + 1]);
+            }
+        }
+
+        /// <summary>
+        /// Вычисление оценки дистанции для структуры
+        /// </summary>
+        public void CalcEstimateDistanceForStruct()
+        {
+            for (int i = 0; i < _pointStructArr.Length - 1; i++)
+            {
+                double a = PointDistanceEstimate(_pointStructArr[i], _pointStructArr[i + 1]);
+            }
+        }
+
+        /// <summary>
+        /// Массив значений дистанции для структуры
+        /// </summary>
+        /// <returns></returns>
+        public double[] DistanceForStructArr()
+        {
+            double[] arr = new double[_pointStructArr.Length - 1];
+            for (int i = 0; i < _pointStructArr.Length - 1; i++)
+            {
+                arr[i] = PointDistance(_pointStructArr[i], _pointStructArr[i + 1]);
+            }
+            return arr;
+        }
+
+        /// <summary>
+        /// Массив значений оценки дистанции для класса
+        /// </summary>
+        /// <returns></returns>
+        public double[] EstimateDistanceForClassArr()
+        {
+            double[] arr = new double[_pointClassArr.Length - 1];
+            for (int i = 0; i < _pointClassArr.Length - 1; i++)
+            {
+                arr[i] = PointDistanceEstimate(_pointClassArr[i], _pointClassArr[i + 1]);
+            }
+            return arr;
+        }
+
+        /// <summary>
+        /// Массив значений оценки дистанции для структуры
+        /// </summary>
+        /// <returns></returns>
+        public double[] EstimateDistanceForStructArr()
+        {
+            double[] arr = new double[_pointStructArr.Length - 1];
+            for (int i = 0; i < _pointStructArr.Length - 1; i++)
+            {
+                arr[i] = PointDistanceEstimate(_pointStructArr[i], _pointStructArr[i + 1]);
+            }
+            return arr;
+        }
+    }
+}
